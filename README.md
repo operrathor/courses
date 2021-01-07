@@ -2,12 +2,18 @@
 
 Course planner for university.
 
-Requires [courses-server](https://github.com/operrathor/courses-server) running on <localhost:3001>.
+Requires [courses-server](https://github.com/operrathor/courses-server) running on `localhost:3001`.
+
+## Setup
+
+```console
+npm install
+```
 
 ## Run
 
 ```console
-$ npm start
+npm start
 ```
 
 ## Screenshots
