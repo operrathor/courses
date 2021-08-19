@@ -4,8 +4,8 @@ Planner for university.
 
 ## Setup
 
-1. Install and run [courses-server](https://github.com/operrathor/courses/tree/main/courses-server)
-2. Install and run [courses-client](https://github.com/operrathor/courses/tree/main/courses-client)
+1. Install and run [server](https://github.com/operrathor/courses/tree/main/server)
+2. Install and run [client](https://github.com/operrathor/courses/tree/main/client)
 
 ## Screenshot
 
