@@ -1,27 +1,12 @@
 # Courses
 
-Course planner for university.
-
-Requires [courses-server](https://github.com/operrathor/courses-server) running on `localhost:3001`.
+Planner for university.
 
 ## Setup
 
-```console
-npm install
-```
+1. Install and run [courses-server](https://github.com/operrathor/courses/tree/main/courses-server)
+2. Install and run [courses-client](https://github.com/operrathor/courses/tree/main/courses-client)
 
-## Run
+## Screenshot
 
-```console
-npm start
-```
-
-## Screenshots
-
-### All groups selected
-
-![](./screenshots/all-selected.png)
-
-### One group per course selected
-
-![](./screenshots/some-selected.png)
+![](./screenshot.png)
