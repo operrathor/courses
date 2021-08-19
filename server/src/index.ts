@@ -1,9 +1,9 @@
-const express = require('express');
-const cors = require('cors');
-const fetch = require('node-fetch');
-const cheerio = require('cheerio');
-const iconv = require('iconv-lite');
-const { getGroups, convertGroups } = require('./groups');
+import express from 'express';
+import cors from 'cors';
+import fetch from 'node-fetch';
+import cheerio from 'cheerio';
+import iconv from 'iconv-lite';
+import { getGroups, convertGroups } from './groups';
 
 const app = express();
 const port = 3001;
