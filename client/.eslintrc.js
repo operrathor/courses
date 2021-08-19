@@ -18,6 +18,6 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
-    'react/prop-types': 'warn',
+    'react/prop-types': 'off',
   },
 };
