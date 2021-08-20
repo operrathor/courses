@@ -15,7 +15,7 @@ const app = express_1.default();
 const cache = apicache_1.default.middleware;
 const port = 3001;
 app.use(cors_1.default());
-app.get('/courses/:id', cache('5 minutes'), async (req, res) => {
+app.get('/courses/:id', cache('1 hour'), async (req, res) => {
     const courseId = Number(req.params.id);
     console.log(`Fetching course ${courseId}`);
     const coursePageContent = await node_fetch_1.default(`https://lfuonline.uibk.ac.at/public/lfuonline_lv.details?lvnr_id_in=${courseId}`)

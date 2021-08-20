@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getEvents = exports.Event = void 0;
 const node_ical_1 = __importDefault(require("node-ical"));
 class Event {
+    // TODO comment
     constructor(summary, start, end, location) {
         this.summary = summary;
         this.start = start;

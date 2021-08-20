@@ -4,13 +4,40 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import AddIcon from '@material-ui/icons/Add';
+import colorPalette from '../data/colorPalette.json';
+import { useCourses } from './CoursesContext';
 
-export default function AddCourse({ onAdd }) {
+async function fetchCourse(id) {
+  return fetch(`http://localhost:3001/courses/${id}`).then((res) => res.json());
+}
+
+export async function newCourse(
+  id,
+  color = colorPalette[Math.floor(Math.random() * colorPalette.length)]
+) {
+  const course = await fetchCourse(id);
+  course.enabledGroups = course.groups.map((g) => g.groupId);
+  course.color = color;
+  return course;
+}
+
+export default function AddCourse() {
+  const { courses, setCourses } = useCourses();
   const idRef = useRef();
+
+  async function addCourse(id, color) {
+    if (courses.find((c) => id === c.courseId)) {
+      return;
+    }
+    const course = await newCourse(id, color);
+    setCourses(
+      courses.concat([course]).sort((c1, c2) => c1.courseId - c2.courseId)
+    );
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    onAdd(idRef.current.value);
+    addCourse(parseInt(idRef.current.value, 10));
     idRef.current.value = '';
   }
 

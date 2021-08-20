@@ -13,7 +13,7 @@ const port = 3001;
 
 app.use(cors());
 
-app.get('/courses/:id', cache('5 minutes'), async (req, res) => {
+app.get('/courses/:id', cache('1 hour'), async (req, res) => {
   const courseId = Number(req.params.id);
 
   console.log(`Fetching course ${courseId}`);

@@ -6,24 +6,39 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { TwitterPicker } from 'react-color';
 import colorPalette from '../data/colorPalette.json';
+import { useCourses } from './CoursesContext';
 
-export default function CourseForm({
-  course,
-  onGroupToggle,
-  onColorChange,
-  onRemove,
-}) {
+export default function CourseForm({ course }) {
+  const { courses, setCourses } = useCourses();
+
+  function removeCourse(id) {
+    setCourses(courses.filter((c) => c.courseId !== id));
+  }
+
+  function changeColor(courseId, color) {
+    const newCourses = [...courses];
+    newCourses.find((c) => c.courseId === courseId).color = color;
+    setCourses(newCourses);
+  }
+
+  function toggleGroup(courseId, enabledGroups) {
+    const newCourses = [...courses];
+    newCourses.find((c) => c.courseId === courseId).enabledGroups =
+      enabledGroups;
+    setCourses(newCourses);
+  }
+
   function handleRemoveButtonClick(e) {
     e.preventDefault();
-    onRemove(course.id);
+    removeCourse(course.courseId);
   }
 
   function handleToggleButtonGroupChange(e, newEnabledGroups) {
-    onGroupToggle(course.id, newEnabledGroups);
+    toggleGroup(course.courseId, newEnabledGroups);
   }
 
   function handleColorPickerChangeComplete(color) {
-    onColorChange(course.id, color.hex);
+    changeColor(course.courseId, color.hex);
   }
 
   return (
@@ -33,8 +48,8 @@ export default function CourseForm({
         onChange={handleToggleButtonGroupChange}
       >
         {course.groups.map((group) => (
-          <ToggleButton key={group} value={group}>
-            {group}
+          <ToggleButton key={group.groupId} value={group.groupId}>
+            {group.groupId}
           </ToggleButton>
         ))}
       </ToggleButtonGroup>
