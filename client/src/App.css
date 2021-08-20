@@ -10,6 +10,18 @@
   margin-top: 0;
 }
 
+.course .class-instructors {
+  margin-top: 1rem;
+}
+
+.course .class-instructors .MuiTableRow-root.disabled th {
+  color: grey;
+}
+
+.course .class-instructors .MuiTableRow-root.disabled td {
+  color: grey;
+}
+
 .course .twitter-picker {
   margin-top: 1rem;
 }
@@ -20,6 +32,10 @@
 
 .add-course .MuiCardContent-root:last-child {
   padding-bottom: 16px;
+}
+
+.MuiButton-root.refresh-courses {
+  margin-top: 1rem;
 }
 
 @media (min-width: 64em) {

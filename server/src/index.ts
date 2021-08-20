@@ -14,7 +14,7 @@ const port = 3001;
 app.use(cors());
 
 app.get('/courses/:id', cache('1 hour'), async (req, res) => {
-  const courseId = Number(req.params.id);
+  const courseId = req.params.id;
 
   console.log(`Fetching course ${courseId}`);
 
@@ -25,11 +25,18 @@ app.get('/courses/:id', cache('1 hour'), async (req, res) => {
     .then((buffer) => iconv.decode(buffer, 'ISO-8859-1'));
 
   const $: cheerio.Root = cheerio.load(coursePageContent);
+
   const fullTitle = $('h3').text();
   const title = fullTitle.substr(fullTitle.indexOf(' ') + 1);
+  if (!title) {
+    console.warn(`Invalid course ${courseId}`);
+    res.status(400).send(`Invalid course ${courseId}`);
+    return;
+  }
+
   const groups = await getGroups($);
 
-  res.json(new Response(courseId, title, groups));
+  res.json(new Response(Number(courseId), title, groups));
 });
 
 app.listen(port, () => {

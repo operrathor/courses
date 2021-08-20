@@ -7,10 +7,18 @@ class Group {
 
   readonly events: Event[];
 
-  constructor(groupId: number, icalUrl: string, events: Event[]) {
+  readonly instructors: string;
+
+  constructor(
+    groupId: number,
+    icalUrl: string,
+    events: Event[],
+    instructors: string
+  ) {
     this.groupId = groupId;
     this.icalUrl = icalUrl;
     this.events = events;
+    this.instructors = instructors;
   }
 }
 
@@ -43,7 +51,18 @@ const getGroups = async ($: cheerio.Root): Promise<Group[]> =>
         const groupId = getGroupId($, groupHeader);
         const icalUrl = getIcalUrl($, groupHeader);
         const events = await getEvents(icalUrl);
-        return new Group(groupId, icalUrl, events);
+        const instructors = $(groupHeader)
+          .parent()
+          .next()
+          .find('tr td')
+          .first()
+          .text();
+        return new Group(
+          groupId,
+          icalUrl,
+          events,
+          instructors === 'Datum' ? '' : instructors
+        );
       })
       .get()
   );

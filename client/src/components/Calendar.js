@@ -15,7 +15,7 @@ export default function Calendar() {
           .filter((g) => c.enabledGroups.includes(g.groupId))
           .flatMap((g) =>
             g.events.map((e) => ({
-              title: `${g.groupId} - ${c.title}`,
+              title: `${g.groupId} - ${c.title} (${e.location}) ${g.instructors}`,
               start: e.start,
               end: e.end,
               groupId: g.groupId,

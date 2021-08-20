@@ -8,7 +8,11 @@ import colorPalette from '../data/colorPalette.json';
 import { useCourses } from './CoursesContext';
 
 async function fetchCourse(id) {
-  return fetch(`http://localhost:3001/courses/${id}`).then((res) => res.json());
+  return fetch(`http://localhost:3001/courses/${id}`)
+    .then((res) => res.json())
+    .catch(() => {
+      throw new Error('meh');
+    });
 }
 
 export async function newCourse(
@@ -29,10 +33,14 @@ export default function AddCourse() {
     if (courses.find((c) => id === c.courseId)) {
       return;
     }
-    const course = await newCourse(id, color);
-    setCourses(
-      courses.concat([course]).sort((c1, c2) => c1.courseId - c2.courseId)
-    );
+    try {
+      const course = await newCourse(id, color);
+      setCourses(
+        courses.concat([course]).sort((c1, c2) => c1.courseId - c2.courseId)
+      );
+    } catch (err) {
+      //
+    }
   }
 
   function handleSubmit(e) {

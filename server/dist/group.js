@@ -3,10 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getGroups = exports.Group = void 0;
 const event_1 = require("./event");
 class Group {
-    constructor(groupId, icalUrl, events) {
+    constructor(groupId, icalUrl, events, instructors) {
         this.groupId = groupId;
         this.icalUrl = icalUrl;
         this.events = events;
+        this.instructors = instructors;
     }
 }
 exports.Group = Group;
@@ -32,7 +33,13 @@ const getGroups = async ($) => Promise.all($('#sdgpanel')
     const groupId = getGroupId($, groupHeader);
     const icalUrl = getIcalUrl($, groupHeader);
     const events = await event_1.getEvents(icalUrl);
-    return new Group(groupId, icalUrl, events);
+    const instructors = $(groupHeader)
+        .parent()
+        .next()
+        .find('tr td')
+        .first()
+        .text();
+    return new Group(groupId, icalUrl, events, instructors === 'Datum' ? '' : instructors);
 })
     .get());
 exports.getGroups = getGroups;

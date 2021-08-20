@@ -16,7 +16,7 @@ const cache = apicache_1.default.middleware;
 const port = 3001;
 app.use(cors_1.default());
 app.get('/courses/:id', cache('1 hour'), async (req, res) => {
-    const courseId = Number(req.params.id);
+    const courseId = req.params.id;
     console.log(`Fetching course ${courseId}`);
     const coursePageContent = await node_fetch_1.default(`https://lfuonline.uibk.ac.at/public/lfuonline_lv.details?lvnr_id_in=${courseId}`)
         .then((fetchRes) => fetchRes.buffer())
@@ -24,8 +24,13 @@ app.get('/courses/:id', cache('1 hour'), async (req, res) => {
     const $ = cheerio_1.default.load(coursePageContent);
     const fullTitle = $('h3').text();
     const title = fullTitle.substr(fullTitle.indexOf(' ') + 1);
+    if (!title) {
+        console.warn(`Invalid course ${courseId}`);
+        res.status(400).send(`Invalid course ${courseId}`);
+        return;
+    }
     const groups = await group_1.getGroups($);
-    res.json(new response_1.Response(courseId, title, groups));
+    res.json(new response_1.Response(Number(courseId), title, groups));
 });
 app.listen(port, () => {
     console.log(`Courses Server listening at http://localhost:${port}`);

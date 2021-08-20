@@ -13,9 +13,10 @@ export default function Courses() {
     const storedCourses = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_COURSES_KEY)
     );
-    if (storedCourses && storedCourses.length > 0) {
+    if (storedCourses) {
       setCourses(storedCourses);
     } else {
+      // TODO refactor
       (async () => {
         const initialLoadData = await Promise.all(
           initialLoad.map(async ({ id, color }) => newCourse(id, color))
