@@ -9,6 +9,8 @@ class Event {
 
   readonly location: string;
 
+  // TODO comment
+
   constructor(summary: string, start: string, end: string, location: string) {
     this.summary = summary;
     this.start = start;

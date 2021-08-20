@@ -21,11 +21,19 @@ export default function App() {
     );
     return {
       course: {
-        id,
+        id: data.courseId,
         title: data.title,
         groups: data.groups.map((g) => g.groupId),
       },
-      courseEvents: data.groups.flatMap((g) => g.events),
+      courseEvents: data.groups.flatMap((g) =>
+        g.events.map((e) => ({
+          title: `${g.groupId} - ${data.title}`,
+          start: e.start,
+          end: e.end,
+          groupId: g.groupId,
+          courseId: data.courseId,
+        }))
+      ),
     };
   }
 
@@ -71,7 +79,7 @@ export default function App() {
 
   function removeCourse(id) {
     setCourses(courses.filter((c) => c.id !== id));
-    setEvents(events.filter((e) => e.extendedProps.courseId !== id));
+    setEvents(events.filter((e) => e.courseId !== id));
   }
 
   function changeColor(courseId, color) {
@@ -80,7 +88,7 @@ export default function App() {
 
     const newEvents = [...events];
     newEvents
-      .filter((e) => e.extendedProps.courseId === courseId)
+      .filter((e) => e.courseId === courseId)
       .forEach((e) => {
         e.color = color;
       });
@@ -95,8 +103,9 @@ export default function App() {
       enabledGroups;
 
     const newEvents = [...events];
+    console.log({ newEvents });
     newEvents
-      .filter((e) => e.extendedProps.courseId === courseId)
+      .filter((e) => e.courseId === courseId)
       .forEach((e) => {
         e.display = enabledGroups.includes(e.groupId) ? 'auto' : 'none';
       });

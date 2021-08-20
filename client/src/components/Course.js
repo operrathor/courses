@@ -16,7 +16,8 @@ export default function Course({
     <Accordion className="course">
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography>
-          <span style={{ color: course.color }}>⬤</span> {course.title}
+          <span style={{ color: course.color }}>⬤</span> {course.id} -{' '}
+          {course.title}
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
