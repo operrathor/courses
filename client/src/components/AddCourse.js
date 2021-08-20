@@ -4,8 +4,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import AddIcon from '@material-ui/icons/Add';
-import { useCourses } from './CoursesContext';
+import { useCourses } from '../CoursesContext';
 import colorPalette from '../data/colorPalette.json';
+import './AddCourse.css';
 
 async function fetchCourse(courseId) {
   return fetch(`http://localhost:3001/courses/${courseId}`)

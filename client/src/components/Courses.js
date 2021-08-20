@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Course from './Course';
 import { newCourse } from './AddCourse';
-import { useCourses } from './CoursesContext';
+import { useCourses } from '../CoursesContext';
 import initialLoad from '../data/initialLoad.json';
 
 const LOCAL_STORAGE_COURSES_KEY = 'courses';

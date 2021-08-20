@@ -3,7 +3,7 @@ import Courses from './components/Courses';
 import AddCourse from './components/AddCourse';
 import RefreshCourses from './components/RefreshCourses';
 import Calendar from './components/Calendar';
-import { CoursesProvider } from './components/CoursesContext';
+import { CoursesProvider } from './CoursesContext';
 import './App.css';
 
 export default function App() {

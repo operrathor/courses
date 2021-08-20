@@ -13,8 +13,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { TwitterPicker } from 'react-color';
-import { useCourses } from './CoursesContext';
+import { useCourses } from '../CoursesContext';
 import colorPalette from '../data/colorPalette.json';
+import './EditCourse.css';
 
 export default function CourseForm({ course }) {
   const { courses, setCourses } = useCourses();

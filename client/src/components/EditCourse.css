@@ -1,0 +1,15 @@
+.course .class-instructors {
+  margin-top: 1rem;
+}
+
+.course .class-instructors .MuiTableRow-root.disabled th {
+  color: grey;
+}
+
+.course .class-instructors .MuiTableRow-root.disabled td {
+  color: grey;
+}
+
+.course .twitter-picker {
+  margin-top: 1rem;
+}

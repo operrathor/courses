@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { useCourses } from './CoursesContext';
+import { useCourses } from '../CoursesContext';
 
 export default function Calendar() {
   const { courses } = useCourses();

@@ -8,8 +8,9 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@material-ui/core';
-import { useCourses } from './CoursesContext';
+import { useCourses } from '../CoursesContext';
 import { newCourse } from './AddCourse';
+import './RefreshCourses.css';
 
 export default function RefreshCourses() {
   const { courses, setCourses } = useCourses();
