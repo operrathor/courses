@@ -1,4 +1,5 @@
 import express from 'express';
+import apicache from 'apicache';
 import cors from 'cors';
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
@@ -7,19 +8,15 @@ import { Response } from './response';
 import { getGroups } from './group';
 
 const app = express();
+const cache = apicache.middleware;
 const port = 3001;
-
-const responseCache = new Map<number, Response>();
 
 app.use(cors());
 
-app.get('/courses/:id', async (req, res) => {
+app.get('/courses/:id', cache('5 minutes'), async (req, res) => {
   const courseId = Number(req.params.id);
 
-  if (responseCache.has(courseId)) {
-    res.json(responseCache.get(courseId));
-    return;
-  }
+  console.log(`Fetching course ${courseId}`);
 
   const coursePageContent = await fetch(
     `https://lfuonline.uibk.ac.at/public/lfuonline_lv.details?lvnr_id_in=${courseId}`
@@ -32,9 +29,7 @@ app.get('/courses/:id', async (req, res) => {
   const title = fullTitle.substr(fullTitle.indexOf(' ') + 1);
   const groups = await getGroups($);
 
-  const response = new Response(courseId, title, groups);
-  responseCache.set(courseId, response);
-  res.json(response);
+  res.json(new Response(courseId, title, groups));
 });
 
 app.listen(port, () => {
