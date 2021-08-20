@@ -18,14 +18,18 @@ export default function Courses() {
     } else {
       (async () => {
         const newCourses = await Promise.all(
-          initialLoad.map(async ({ courseId, color }) =>
-            newCourse(courseId, color)
-          )
+          initialLoad.map(async ({ courseId, color }) => {
+            try {
+              return await newCourse(courseId, color);
+            } catch (err) {
+              return null;
+            }
+          })
         );
         setCourses(
-          newCourses.sort(
-            (course1, course2) => course1.courseId - course2.courseId
-          )
+          newCourses
+            .filter((course) => course !== null)
+            .sort((course1, course2) => course1.courseId - course2.courseId)
         );
       })();
     }
