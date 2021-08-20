@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Course from './Course';
 import { newCourse } from './AddCourse';
 import { useCourses } from './CoursesContext';
@@ -16,15 +16,19 @@ export default function Courses() {
     if (storedCourses) {
       setCourses(storedCourses);
     } else {
-      // TODO refactor
       (async () => {
-        const initialLoadData = await Promise.all(
-          initialLoad.map(async ({ id, color }) => newCourse(id, color))
+        const newCourses = await Promise.all(
+          initialLoad.map(async ({ courseId, color }) =>
+            newCourse(courseId, color)
+          )
         );
-        setCourses(initialLoadData.sort((c1, c2) => c1.courseId - c2.courseId));
+        setCourses(
+          newCourses.sort(
+            (course1, course2) => course1.courseId - course2.courseId
+          )
+        );
       })();
     }
-    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

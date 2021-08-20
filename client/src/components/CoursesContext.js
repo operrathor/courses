@@ -1,9 +1,6 @@
-import React, { useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
-export const CoursesContext = React.createContext({
-  courses: [],
-  setCourses: () => {},
-});
+export const CoursesContext = createContext();
 
 export function useCourses() {
   return useContext(CoursesContext);

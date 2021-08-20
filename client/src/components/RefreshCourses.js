@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import {
@@ -13,8 +13,7 @@ import { newCourse } from './AddCourse';
 
 export default function RefreshCourses() {
   const { courses, setCourses } = useCourses();
-
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,25 +23,22 @@ export default function RefreshCourses() {
     setOpen(false);
   };
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
     setOpen(false);
-    // TODO refactor + error handling (in case course doesn't exist anymore)
-    (async () => {
-      const data = await Promise.all(
-        courses.map(async (c) => {
-          try {
-            return await newCourse(c.courseId, c.color);
-          } catch (err) {
-            return null;
-          }
-        })
-      );
-      setCourses(
-        data
-          .filter((i) => i !== null)
-          .sort((c1, c2) => c1.courseId - c2.courseId)
-      );
-    })();
+    const newCourses = await Promise.all(
+      courses.map(async (course) => {
+        try {
+          return await newCourse(course.courseId, course.color);
+        } catch (err) {
+          return null;
+        }
+      })
+    );
+    setCourses(
+      newCourses
+        .filter((course) => course !== null)
+        .sort((course1, course2) => course1.courseId - course2.courseId)
+    );
   };
 
   return (

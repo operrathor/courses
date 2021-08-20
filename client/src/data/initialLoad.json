@@ -1,9 +1,9 @@
 [
-  { "id": 703087, "color": "#273C75" },
-  { "id": 703088, "color": "#192A56" },
-  { "id": 703089, "color": "#00A8FF" },
-  { "id": 703090, "color": "#0097E6" },
-  { "id": 703134, "color": "#E84118" },
-  { "id": 703135, "color": "#2BCBBA" },
-  { "id": 703081, "color": "#4CD137" }
+  { "courseId": 703087, "color": "#273C75" },
+  { "courseId": 703088, "color": "#192A56" },
+  { "courseId": 703089, "color": "#00A8FF" },
+  { "courseId": 703090, "color": "#0097E6" },
+  { "courseId": 703134, "color": "#E84118" },
+  { "courseId": 703135, "color": "#2BCBBA" },
+  { "courseId": 703081, "color": "#4CD137" }
 ]

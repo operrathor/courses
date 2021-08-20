@@ -13,40 +13,28 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { TwitterPicker } from 'react-color';
-import colorPalette from '../data/colorPalette.json';
 import { useCourses } from './CoursesContext';
+import colorPalette from '../data/colorPalette.json';
 
 export default function CourseForm({ course }) {
   const { courses, setCourses } = useCourses();
 
-  function removeCourse(id) {
-    setCourses(courses.filter((c) => c.courseId !== id));
+  function handleRemoveButtonClick(e) {
+    e.preventDefault();
+    setCourses(courses.filter((c) => c.courseId !== course.courseId));
   }
 
-  function changeColor(courseId, color) {
+  function handleToggleButtonGroupChange(e, enabledGroups) {
     const newCourses = [...courses];
-    newCourses.find((c) => c.courseId === courseId).color = color;
-    setCourses(newCourses);
-  }
-
-  function toggleGroup(courseId, enabledGroups) {
-    const newCourses = [...courses];
-    newCourses.find((c) => c.courseId === courseId).enabledGroups =
+    newCourses.find((c) => c.courseId === course.courseId).enabledGroups =
       enabledGroups;
     setCourses(newCourses);
   }
 
-  function handleRemoveButtonClick(e) {
-    e.preventDefault();
-    removeCourse(course.courseId);
-  }
-
-  function handleToggleButtonGroupChange(e, newEnabledGroups) {
-    toggleGroup(course.courseId, newEnabledGroups);
-  }
-
   function handleColorPickerChangeComplete(color) {
-    changeColor(course.courseId, color.hex);
+    const newCourses = [...courses];
+    newCourses.find((c) => c.courseId === course.courseId).color = color.hex;
+    setCourses(newCourses);
   }
 
   return (
@@ -61,29 +49,6 @@ export default function CourseForm({ course }) {
           </ToggleButton>
         ))}
       </ToggleButtonGroup>
-      {/*       <Card className="class-instructors">
-        <CardContent>
-          <Typography color="textSecondary" gutterBottom>
-            Instructors
-          </Typography>
-          <List dense="true">
-            {course.groups.map((c) => (
-              <ListItem>
-                <ListItemText
-                  primary={`Group ${c.groupId}: ${
-                    c.instructors === '' ? 'TBA' : c.instructors
-                  }`}
-                />
-              </ListItem>
-            ))}
-          </List>
-        </CardContent>
-      </Card> */}
-      {/*       <Card className="class-instructors">
-        <CardContent>
-          <Typography color="textSecondary" gutterBottom>
-            Instructors
-          </Typography> */}
       <TableContainer component={Paper} className="class-instructors">
         <Table size="small">
           <TableHead>
@@ -93,26 +58,24 @@ export default function CourseForm({ course }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {course.groups.map((g) => (
+            {course.groups.map((group) => (
               <TableRow
-                key={g.groupId}
+                key={group.groupId}
                 className={
-                  course.enabledGroups.includes(g.groupId) ? '' : 'disabled'
+                  course.enabledGroups.includes(group.groupId) ? '' : 'disabled'
                 }
               >
-                <TableCell align="left" component="th" scope="row">
-                  {g.groupId}
+                <TableCell component="th" scope="row">
+                  {group.groupId}
                 </TableCell>
                 <TableCell>
-                  {g.instructors === '' ? 'TBA' : g.instructors}
+                  {group.instructors === '' ? 'TBA' : group.instructors}
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      {/*         </CardContent>
-      </Card> */}
       <TwitterPicker
         color={course.color}
         onChangeComplete={handleColorPickerChangeComplete}

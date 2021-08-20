@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { useCourses } from './CoursesContext';
@@ -9,18 +9,18 @@ export default function Calendar() {
 
   useEffect(() => {
     let newEvents = [];
-    courses.forEach((c) => {
+    courses.forEach((course) => {
       newEvents = newEvents.concat(
-        c.groups
-          .filter((g) => c.enabledGroups.includes(g.groupId))
-          .flatMap((g) =>
-            g.events.map((e) => ({
-              title: `${g.groupId} - ${c.title} (${e.location}) ${g.instructors}`,
-              start: e.start,
-              end: e.end,
-              groupId: g.groupId,
-              courseId: c.courseId,
-              color: c.color,
+        course.groups
+          .filter((group) => course.enabledGroups.includes(group.groupId))
+          .flatMap((group) =>
+            group.events.map((event) => ({
+              title: `${group.groupId} - ${course.title} (${event.location}) ${group.instructors}`,
+              start: event.start,
+              end: event.end,
+              groupId: group.groupId,
+              courseId: course.courseId,
+              color: course.color,
             }))
           )
       );
