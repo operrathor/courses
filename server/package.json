@@ -2,9 +2,12 @@
   "name": "courses-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "rimraf dist && tsc",
+    "prestart": "npm run build",
     "start": "node .",
+    "start:dev": "nodemon",
     "lint": "eslint .",
     "format": "prettier -w ."
   },
@@ -34,7 +37,10 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.0",
     "eslint-plugin-node": "^11.1.0",
+    "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.2.1",
     "typescript": "^4.3.5"
   }
 }
