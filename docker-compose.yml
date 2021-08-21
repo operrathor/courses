@@ -6,15 +6,14 @@ services:
     environment:
       - NODE_ENV=production
     labels:
-      - traefik.http.routers.courses-server.rule=PathPrefix(`/courses`)
+      - traefik.http.routers.courses-server.rule=PathPrefix(`/api`)
     restart: always
   courses-client:
     image: courses-client
     build: client
     environment:
       - NODE_ENV=production
-      - REACT_APP_SERVER_HOST=localhost
-      - REACT_APP_SERVER_PORT=${PROXY_PORT}
+      - REACT_APP_API_BASE_URL=/api
     labels:
       - traefik.http.routers.courses-client.rule=PathPrefix(`/`)
     restart: always
