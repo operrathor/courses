@@ -1,4 +1,5 @@
 import {
+  Link,
   Paper,
   Table,
   TableBody,
@@ -6,6 +7,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -93,6 +95,14 @@ export default function CourseForm({ course }) {
           Remove
         </Button>
       </p>
+      <Typography>
+        <Link
+          href={`https://lfuonline.uibk.ac.at/public/lfuonline_lv.details?lvnr_id_in=${course.courseId}`}
+          target="_blank"
+        >
+          LFU:online
+        </Link>
+      </Typography>
     </FormGroup>
   );
 }
