@@ -14,4 +14,4 @@ npm install
 npm start
 ```
 
-Runs on [port 8081](http://localhost:3000/).
+Runs on [port 3000](http://localhost:3000/).
