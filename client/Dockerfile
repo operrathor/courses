@@ -5,15 +5,9 @@ FROM node:14
 WORKDIR /app
 COPY ["package.json", "package-lock.json*", "./"]
 RUN npm install
+RUN npm install -g serve
 COPY . .
 
-EXPOSE 3000
-CMD [ "npm", "start" ]
-
-# TODO Replace development server with production build. Issue: How to make production build aware of runtime
-#      environment variables like REACT_APP_API_BASE_URL, which can be set in docker-compose.yml?
-#
-#   EXPOSE 5000
-#   RUN npm install -g serve
-#   RUN npm run build
-#   CMD [ "serve", "-s", "build" ]
+EXPOSE 5000
+# We build the application on container start so that React takes runtime environment variables into account.
+CMD npm run build && serve -s build
