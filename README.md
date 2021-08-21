@@ -1,6 +1,10 @@
 # Courses
 
-Planner for university.
+Planner for (my) university.
+
+## Screenshot
+
+![](./screenshot.png)
 
 ## Setup (with Docker)
 
@@ -44,7 +48,3 @@ cd courses
 
 1. In one terminal, `cd` into `server` and [install and run the server](https://github.com/operrathor/courses/tree/main/server)
 2. In another terminal, `cd` into `client` and [install and run the client](https://github.com/operrathor/courses/tree/main/client)
-
-## Screenshot
-
-![](./screenshot.png)

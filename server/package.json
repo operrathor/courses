@@ -1,6 +1,7 @@
 {
   "name": "courses-server",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "main": "dist/index.js",
   "scripts": {
