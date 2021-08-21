@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  courses-server:
+    image: courses-server
+    build: server
+    environment:
+      - NODE_ENV=production
+    labels:
+      - traefik.http.routers.courses-server.rule=PathPrefix(`/courses`)
+    restart: always
+  courses-client:
+    image: courses-client
+    build: client
+    environment:
+      - NODE_ENV=production
+      - REACT_APP_SERVER_HOST=localhost
+      - REACT_APP_SERVER_PORT=${PROXY_PORT}
+    labels:
+      - traefik.http.routers.courses-client.rule=PathPrefix(`/`)
+    restart: always
+  reverse-proxy:
+    image: traefik:v2.5
+    command:
+      - --providers.docker
+      - --entrypoints.web.address=:${PROXY_PORT}
+    ports:
+      - "${PROXY_PORT}:${PROXY_PORT}"
+    restart: always
+    volumes:
+      - ${DOCKER_SOCK}:/var/run/docker.sock

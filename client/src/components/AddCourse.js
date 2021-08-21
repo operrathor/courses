@@ -9,7 +9,9 @@ import colorPalette from '../data/colorPalette.json';
 import './AddCourse.css';
 
 async function fetchCourse(courseId) {
-  return fetch(`http://localhost:3001/courses/${courseId}`)
+  return fetch(
+    `http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}/courses/${courseId}`
+  )
     .then((res) => res.json())
     .catch(() => {
       throw new Error(`Could not fetch or parse course ${courseId}`);
