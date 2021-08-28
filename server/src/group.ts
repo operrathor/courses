@@ -27,7 +27,6 @@ const getDatesSection = ($: cheerio.Root) =>
     .children()
     .filter((index, element) => {
       const id = $(element).attr('id');
-      console.log(id);
       return !!id && /^t-?\d+$/.test(id);
     })
     .first();
