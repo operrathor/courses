@@ -5,11 +5,14 @@ class Response {
 
   readonly title: string;
 
+  readonly ects: number;
+
   readonly groups: Group[];
 
-  constructor(courseId: number, title: string, groups: Group[]) {
+  constructor(courseId: number, title: string, ects: number, groups: Group[]) {
     this.courseId = courseId;
     this.title = title;
+    this.ects = ects;
     this.groups = groups;
   }
 }

@@ -16,7 +16,7 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { TwitterPicker } from 'react-color';
 import { useCourses } from '../CoursesContext';
-import colorPalette from '../data/colorPalette.json';
+import colorPalette from '../data/colorPalette';
 import './EditCourse.css';
 
 export default function CourseForm({ course }) {
@@ -94,6 +94,13 @@ export default function CourseForm({ course }) {
         >
           Remove
         </Button>
+      </p>
+      <p>
+        <Typography color="textSecondary">
+          Course ID: {course.courseId}
+          <br />
+          ECTS: {course.ects}
+        </Typography>
       </p>
       <Typography>
         <Link

@@ -22,6 +22,16 @@ class Group {
   }
 }
 
+const getDatesSection = ($: cheerio.Root) =>
+  $('#content')
+    .children()
+    .filter((index, element) => {
+      const id = $(element).attr('id');
+      console.log(id);
+      return !!id && /^t-?\d+$/.test(id);
+    })
+    .first();
+
 const getGroupId = ($: cheerio.Root, groupHeader: cheerio.Element) =>
   Number(
     $(groupHeader)
@@ -44,9 +54,8 @@ const getIcalUrl = ($: cheerio.Root, groupHeader: cheerio.Element) => {
 
 const getGroups = async ($: cheerio.Root): Promise<Group[]> =>
   Promise.all(
-    $('#sdgpanel')
-      .next()
-      .find('thead tr')
+    getDatesSection($)
+      .find('thead tr') // find groups
       .map(async (index, groupHeader) => {
         const groupId = getGroupId($, groupHeader);
         const icalUrl = getIcalUrl($, groupHeader);
