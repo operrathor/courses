@@ -72,7 +72,7 @@ export default function CourseForm({ course }) {
                   {group.groupId}
                 </TableCell>
                 <TableCell>
-                  {group.instructors === '' ? 'TBA' : group.instructors}
+                  {group.instructors === '' ? 'n/a' : group.instructors}
                 </TableCell>
               </TableRow>
             ))}
