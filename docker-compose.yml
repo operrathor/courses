@@ -1,16 +1,14 @@
 version: '3.9'
 services:
   courses-server:
-    image: courses-server
-    build: server
+    image: operrathor/courses-server:1.0.0
     environment:
       - NODE_ENV=production
     labels:
       - traefik.http.routers.courses-server.rule=PathPrefix(`/api`)
     restart: always
   courses-client:
-    image: courses-client
-    build: client
+    image: operrathor/courses-client:1.0.0
     environment:
       - NODE_ENV=production
       - REACT_APP_API_BASE_URL=/api
